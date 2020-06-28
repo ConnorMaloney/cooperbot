@@ -5,16 +5,20 @@ import pyttsx3
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[2].id)
-
-memeText = "soi soi soi soi soi soi soi. e brbrbrbbrbrbr. ped ped ped ped ped ped ped 0000 0000 ha ha ha ha hahahhahhahaahhaha tce tce tce tce tce tce tce tce tce mmmmmmmmmm ttttttttt m m m m mm m mm mmm m tt t tt t t"
-testText = 'Red. red. blue. yellow. red. Two. Five. Nine. Three. Mike. soi soi soi soi soi soi soi soi soi soi soi Im gonna make an earthquake e brbrbrbrbrbrbrbrbrbrbr'
-engine.say(memeText)
-engine.setProperty('voice', voices[1].id)
-engine.say(memeText)
-engine.setProperty('voice', voices[0].id)
-engine.say(memeText)
+for voice in voices:
+   engine.setProperty('voice', voice.id)
+   print(voice)
+   engine.say('The quick brown fox jumped over the lazy dog.')
 engine.runAndWait()
+# engine.setProperty('voice', voices[2].id)
+# memeText = "soi soi soi soi soi soi soi. e brbrbrbbrbrbr. ped ped ped ped ped ped ped 0000 0000 ha ha ha ha hahahhahhahaahhaha tce tce tce tce tce tce tce tce tce mmmmmmmmmm ttttttttt m m m m mm m mm mmm m tt t tt t t"
+# testText = 'Red. red. blue. yellow. red. Two. Five. Nine. Three. Mike. soi soi soi soi soi soi soi soi soi soi soi Im gonna make an earthquake e brbrbrbrbrbrbrbrbrbrbr'
+# engine.say(memeText)
+# engine.setProperty('voice', voices[1].id)
+# engine.say(memeText)
+# engine.setProperty('voice', voices[0].id)
+# engine.say(memeText)
+# engine.runAndWait()
 
 
 # while True:

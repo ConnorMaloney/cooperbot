@@ -1,5 +1,6 @@
 import speech_recognition as sr
 import pyttsx3
+from wires import wires
 
 # Changing voices in pyttsx3 must be SAPI 5 compatible
 engine = pyttsx3.init()
@@ -8,7 +9,7 @@ rate = engine.getProperty('rate')
 engine.setProperty('voice', voices[1].id)
 engine.setProperty('rate', 175)
 
-engine.say("Greetings, Cooper here. Go ahead and talk.")
+engine.say("Listening...")
 engine.runAndWait()
 
 while True:
@@ -18,17 +19,23 @@ while True:
    with sr.Microphone() as source:
       print("Listening...")
       audio = r.listen(source)
-
-   # recognize speech using Google Speech Recognition
    try:
-      # for testing purposes, we're just using the default API key
-      # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-      # instead of `r.recognize_google(audio)`
-      if "hello" in r.recognize_google(audio):
-         engine.say("your sentence had hello")
+      #if I say wires, grab variables and call wires logic
+      if "wires" in r.recognize_google(audio):
+         answer = wires(engine)
+         engine.say(answer)
+         # engine.say("Initiating wires.")
+         # engine.say("How many?")
+         # engine.runAndWait()
+         # r = sr.Recognizer()
+         # with sr.Microphone() as source:
+         #    print("Getting number of wires...")
+         #    numWires = r.listen(source)
+
+         # engine.say(numWires)
 
       else:
-         engine.say("i didnt hear you say hello")
+         engine.say("Error. Retry.")
       engine.runAndWait()
    except sr.UnknownValueError:
       print("Google Speech Recognition could not understand audio")

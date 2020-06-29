@@ -8,31 +8,23 @@ voices = engine.getProperty('voices')
 rate = engine.getProperty('rate')
 engine.setProperty('voice', voices[1].id)
 engine.setProperty('rate', 175)
-
-engine.say("Listening...")
-engine.runAndWait()
-
 while True:
 
+   print("Listening...")
    # obtain audio from the microphone
    r = sr.Recognizer()
    with sr.Microphone() as source:
-      print("Listening...")
       audio = r.listen(source)
    try:
       #if I say wires, grab variables and call wires logic
       if "wires" in r.recognize_google(audio):
          answer = wires(engine)
+         print(answer)
          engine.say(answer)
-         # engine.say("Initiating wires.")
-         # engine.say("How many?")
-         # engine.runAndWait()
-         # r = sr.Recognizer()
-         # with sr.Microphone() as source:
-         #    print("Getting number of wires...")
-         #    numWires = r.listen(source)
 
-         # engine.say(numWires)
+      elif "I love you" in r.recognize_google(audio):
+         print("I love you more")
+         engine.say("I love you more")
 
       else:
          engine.say("Error. Retry.")
@@ -41,3 +33,4 @@ while True:
       print("Google Speech Recognition could not understand audio")
    except sr.RequestError as e:
       print("Could not request results from Google Speech Recognition service; {0}".format(e))
+

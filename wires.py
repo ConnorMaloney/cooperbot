@@ -10,11 +10,12 @@ def wires(engine):
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Getting number of wires...")
-        numWires = r.listen(source)
+        audio = r.listen(source)
     try: 
-        if "3" in r.recognize_google(numWires):
+        numWires = r.recognize_google(audio)
+        if "3" in numWires:
             return "Cut the red wire."
-        elif "4" in r.recognize_google(numWires):
+        elif "4" in numWires:
             return "Cut the last wire."
         else: 
             return "Error, restart."

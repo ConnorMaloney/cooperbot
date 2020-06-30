@@ -8,10 +8,13 @@ voices = engine.getProperty('voices')
 rate = engine.getProperty('rate')
 engine.setProperty('voice', voices[1].id)
 engine.setProperty('rate', 175)
+print("Cooper here.")
+engine.say("Cooper here.")
+engine.runAndWait()
+# Begin game loop
 while True:
-
-   print("Cooper here.")
-   engine.say("Cooper here.")
+   print("What are we solving?") # TODO: Add random speech
+   engine.say("What are we solving?")
    engine.runAndWait()
    # obtain audio from the microphone
    r = sr.Recognizer()

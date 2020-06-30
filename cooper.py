@@ -18,6 +18,7 @@ while True:
    with sr.Microphone() as source:
       audio = r.listen(source)
       answer = r.recognize_google(audio)
+      print(answer)
    try:
       #if I say wires, grab variables and call wires logic
       if "wires" in answer:
@@ -28,6 +29,12 @@ while True:
       elif "I love you" in answer:
          print("I love you more")
          engine.say("I love you more")
+
+      elif "exit" or "quit" or "shutdown" in answer:
+         print("Shutting down. Goodbye!")
+         engine.say("Shutting down. Goodbye!")
+         engine.runAndWait()
+         exit()
 
       else:
          engine.say("Error. Retry.")

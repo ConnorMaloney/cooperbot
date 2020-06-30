@@ -3,20 +3,25 @@ import pyttsx3
 
 # wires logic function called from main with parameters, begin logic
 def wires(engine):
+    print("Initiating wires.")
     engine.say("Initiating wires.")
-    engine.say("How many?")
     engine.runAndWait()
 
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("Getting number of wires...")
+        print("Listening...")
         audio = r.listen(source)
+        response = r.recognize_google(audio)
+        print(response)
+    
+    engine.say("Calculating...")
+    engine.runAndWait()
+    
     try: 
-        numWires = r.recognize_google(audio)
-        if "3" in numWires:
-            return "Cut the red wire."
-        elif "4" in numWires:
-            return "Cut the last wire."
+        if len(response.split()) == 3:
+            return "Three wires."
+        elif len(response.split()) == 4:
+            return "Four wires."
         else: 
             return "Error, restart."
         engine.runAndWait()

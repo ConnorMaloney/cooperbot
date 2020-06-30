@@ -10,15 +10,15 @@ engine.setProperty('voice', voices[1].id)
 engine.setProperty('rate', 175)
 while True:
 
-   print("Listening...")
-   engine.say("Listening...")
+   print("Cooper here.")
+   engine.say("Cooper here.")
    engine.runAndWait()
    # obtain audio from the microphone
    r = sr.Recognizer()
    with sr.Microphone() as source:
       audio = r.listen(source)
       answer = r.recognize_google(audio)
-      print(answer)
+      print("You said:", answer)
    try:
       #if I say wires, grab variables and call wires logic
       if "wires" in answer:
@@ -30,6 +30,10 @@ while True:
          print("I love you more")
          engine.say("I love you more")
 
+      elif "broke" in answer:
+         print("If server working do nothing else fix server")
+         engine.say("If server working do nothing else fix server")
+      
       elif "exit" or "quit" or "shutdown" in answer:
          print("Shutting down. Goodbye!")
          engine.say("Shutting down. Goodbye!")

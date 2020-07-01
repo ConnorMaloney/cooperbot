@@ -120,7 +120,7 @@ def wires(engine):
                 elif "no" in response:
                     # ...and if there are no red wires, cut the last wire.
                     if colours.count("red") == 0:
-                        return "Cut the last wire".
+                        return "Cut the last wire"
                     # ...cut the fourth wire.
                     else:
                         return "Cut the fourth wire."

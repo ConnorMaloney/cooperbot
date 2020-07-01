@@ -116,9 +116,14 @@ def wires(engine):
                 # ...and the last digit of the serial number is odd, cut the third wire.
                 if "yes" in response: 
                     return "Cut the third wire."
-                # ...and the last digit of the serial number is even, cut the fourth wire.
+                # ...and the last digit of the serial number is even...
                 elif "no" in response:
-                    return "Cut the fourth wire."
+                    # ...and if there are no red wires, cut the last wire.
+                    if colours.count("red") == 0:
+                        return "Cut the last wire".
+                    # ...cut the fourth wire.
+                    else:
+                        return "Cut the fourth wire."
             # Otherwise, if there is exactly one yellow wire and there is more than one white wire, cut the fourth wire.
             elif colours.count("yellow") == 1 and colours.count("white") > 1:
                 return "Cut the fourth wire."

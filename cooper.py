@@ -2,6 +2,8 @@ import speech_recognition as sr
 import pyttsx3
 from wires import wires
 
+# TODO: Add delay for speech processing
+
 # Changing voices in pyttsx3 must be SAPI 5 compatible
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')

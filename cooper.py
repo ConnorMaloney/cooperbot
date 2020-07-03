@@ -39,7 +39,7 @@ while True:
          print("If server working do nothing else fix server")
          engine.say("If server working do nothing else fix server")
       
-      elif "exit" or "quit" or "shutdown" in answer:
+      elif "exit" or "quit" or "shutdown" or "done" in answer:
          print("Shutting down. Goodbye!")
          engine.say("Shutting down. Goodbye!")
          engine.runAndWait()

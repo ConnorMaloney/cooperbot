@@ -27,27 +27,32 @@ while True:
       if "done" in answer:
          print("Nice! Let's keep it up.")
          engine.say("Nice! Let's keep it up.") # TODO: Add random speech
+         engine.runAndWait()
 
       # If I say module name, grab variables and call module logic
       if "wires" in answer:
          solution = wires(engine)
          print(solution)
          engine.say(solution)
+         engine.runAndWait()
 
       if "button" in answer:
          solution = button(engine)
          print(solution)
          engine.say(solution)
+         engine.runAndWait()
 
       # Maria easter egg
       if "I love you" in answer:
          print("I love you more")
          engine.say("I love you more")
+         engine.runAndWait()
 
       # Greg easter egg
       if "broke" in answer:
          print("If server working do nothing else fix server")
          engine.say("If server working do nothing else fix server")
+         engine.runAndWait()
       
       if "exit" in answer or "shutdown" in answer:
          print("Shutting down. Goodbye!")

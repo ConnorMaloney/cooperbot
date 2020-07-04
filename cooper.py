@@ -5,6 +5,8 @@ from button import button
 
 # TODO: Add delay for speech processing
 
+# TODO: Initiate "Bomb Check" module that initializes all globals
+
 # Changing voices in pyttsx3 must be SAPI 5 compatible
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')

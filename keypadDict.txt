@@ -5,15 +5,17 @@ z
 triangle
 h 
 right crescent 
-left crescent 
-e 
+i 
+eye 
+eyes
+ice 
 cursive 
 white star 
 question 
 copyright 
 boobs 
-i 
-eye 
+cleavage
+mirror
 w 
 3 
 three
@@ -25,7 +27,8 @@ pee
 t 
 tee 
 silly 
-trident 
+trident
+left crescent  
 dragon 
 black star 
 rail 

@@ -36,3 +36,5 @@ Metal Battle - 51
 
 # Words that cooper struggles with:
 Trident
+Psy
+Co (pronounced, Company)

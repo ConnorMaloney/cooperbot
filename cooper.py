@@ -16,24 +16,15 @@ def testMode(engine):
          audio = r.listen(source)
          answer = r.recognize_google(audio)
 
-      try:
-         if "exit" in answer or "shutdown" in answer or "shut down" in answer:
-            print("Exiting test mode. Returning to main.")
-            engine.say("Exiting test mode. Returning to main.")
-            engine.runAndWait()
-            break
-         else:
-            print(answer)
-            engine.say(answer)
-            engine.runAndWait()
-      except sr.UnknownValueError:
-         print("Google Speech Recognition could not understand audio")
-         engine.say("Sorry, could not understand you. Please repeat.")
+      if "exit" in answer or "shutdown" in answer or "shut down" in answer:
+         print("Exiting test mode. Returning to main.")
+         engine.say("Exiting test mode. Returning to main.")
          engine.runAndWait()
-      except sr.RequestError as e:
-         print("Could not request results from Google Speech Recognition service; {0}".format(e))
-
-
+         break
+      else:
+         print(answer)
+         engine.say(answer)
+         engine.runAndWait()
 # TODO: Add delay for speech processing
 
 # TODO: Initiate "Bomb Check" module that initializes all globals

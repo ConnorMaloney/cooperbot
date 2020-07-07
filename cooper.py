@@ -3,6 +3,30 @@ import pyttsx3
 from wires import wires
 from button import button 
 
+
+def testMode(engine):
+   print("Initiating test mode.")
+   engine.say("Initiating test mode. Go ahead and state utterance, I'll repeat.")
+   engine.runAndWait()
+
+   # Initiate mimic loop to test what Cooper interprets
+   while True:
+      r = sr.Recognizer()
+      with sr.Microphone() as source:
+         audio = r.listen(source)
+         answer = r.recognize_google(audio)
+
+         if "exit" in answer or "shutdown" in answer or "shut down" in answer:
+            print("Exiting test mode. Returning to main.")
+            engine.say("Exiting test mode. Returning to main.")
+            engine.runAndWait()
+            break
+         else:
+            print(answer)
+            engine.say(answer)
+            engine.runAndWait()
+
+
 # TODO: Add delay for speech processing
 
 # TODO: Initiate "Bomb Check" module that initializes all globals
@@ -55,8 +79,12 @@ while True:
          print("If server working do nothing else fix server")
          engine.say("If server working do nothing else fix server")
          engine.runAndWait()
+
+      # Test mode
+      if "test" in answer or "testing" in answer or "test mode" in answer:
+         testMode(engine)
       
-      if "exit" in answer or "shutdown" in answer:
+      if "exit" in answer or "shutdown" in answer or "shut down" in answer:
          print("Shutting down. Goodbye!")
          engine.say("Shutting down. Goodbye!")
          engine.runAndWait()
@@ -67,4 +95,5 @@ while True:
       print("Google Speech Recognition could not understand audio")
    except sr.RequestError as e:
       print("Could not request results from Google Speech Recognition service; {0}".format(e))
+
 

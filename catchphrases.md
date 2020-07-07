@@ -33,3 +33,6 @@ Challenger! - 72
 Adventure Intro - 65
 All Star Intro - 60
 Metal Battle - 51
+
+# Words that cooper struggles with:
+Trident

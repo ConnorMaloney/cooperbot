@@ -4,8 +4,6 @@ from wires import wires
 from button import button 
 from keypads import keypads
 
-# TODO: FIX COOPER AND HAVE HIM STOP TIMING OUT ON UNKNOWNVALUEERROR
-
 def testMode(engine):
    print("Initiating test mode.")
    engine.say("Initiating test mode. Go ahead and state utterance, I'll repeat.")
@@ -71,11 +69,18 @@ while True:
          engine.runAndWait()
 
       # Begin keypad module logic
-      if "keypad" in answer or "knee" in answer or "pee" in answer or "pad" in answer:
+      if "keypad" in answer or "knee" in answer or "pee" in answer or "pad" in answer or "symbol" in answer:
          solution = keypads(engine)
          print(solution)
          engine.say(solution)
          engine.runAndWait()
+
+      # Victory speech
+      if "did it" in answer or "victory" in answer or "congrat" in answer:
+         print("Another job well done. Mission accomplished, sir.")
+         engine.say("Another job well done. Mission accomplished, sir.")
+         engine.runAndWait()
+         exit()
 
       # Maria easter egg
       if "I love you" in answer:
@@ -106,5 +111,7 @@ while True:
       engine.runAndWait()
    except sr.RequestError as e:
       print("Could not request results from Google Speech Recognition service; {0}".format(e))
+      engine.say("Sorry, lost connection to Google.")
+      engine.runAndWait()
 
 

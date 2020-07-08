@@ -12,9 +12,27 @@ def wires(engine):
     engine.say("Initiating wires.")
     engine.runAndWait()
 
-    if bomb.serialStated == False:
-        print("Is the last digit of the serial number odd?")
-        engine.say("Is the last digit of the serial number odd?")
+    try:
+
+        if bomb.serialStated == False:
+            print("Is the last digit of the serial number odd?")
+            engine.say("Is the last digit of the serial number odd?")
+            engine.runAndWait()
+
+            r = sr.Recognizer()
+            with sr.Microphone() as source:
+                print("Listening...")
+                audio = r.listen(source)
+                response = r.recognize_google(audio)
+
+            if "yes" in response:
+                bomb.serialOdd = True
+                bomb.serialStated = True
+            elif "no" in response:
+                bomb.serialStated = True
+
+        print("What are the colours?")
+        engine.say("What are the colours?")
         engine.runAndWait()
 
         r = sr.Recognizer()
@@ -23,31 +41,18 @@ def wires(engine):
             audio = r.listen(source)
             response = r.recognize_google(audio)
 
-        if "yes" in response:
-            bomb.serialOdd = True
-            bomb.serialStated = True
-        elif "no" in response:
-            bomb.serialStated = True
-
-    print("What are the colours?")
-    engine.say("What are the colours?")
-    engine.runAndWait()
-
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("Listening...")
-        audio = r.listen(source)
-        response = r.recognize_google(audio)
+        # Abort
+        if "cancel" in response:
+            return "Exiting, returning to main."
+        
+        colours = response.split() # Sanitize function should go here
+        colours = bomb.sanitize(colours)
+        print("You said:", colours)
+        engine.say("Calculating...")
+        engine.runAndWait()
+        sleep(randint(1,4)) # Have Cooper "calculate" for a random amount of time
     
-    colours = response.split() # Sanitize function should go here
-    colours = bomb.sanitize(colours)
-    print("You said:", colours)
-    engine.say("Calculating...")
-    engine.runAndWait()
-    sleep(randint(1,4)) # Have Cooper "calculate" for a random amount of time
-    
-    # Number of wires determined by how many wire colours are said
-    try: 
+        # Number of wires determined by how many wire colours are said
         # 3 wires:
         if len(colours) == 3: 
             # If there are no red wires, cut the second wire.

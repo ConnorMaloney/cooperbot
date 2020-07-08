@@ -22,17 +22,18 @@ def button(engine):
             engine.say("How many batteries?")
             engine.runAndWait()
 
-        r = sr.Recognizer()
-        with sr.Microphone() as source:
-            print("Listening...")
-            audio = r.listen(source)
-            response = r.recognize_google(audio)
+            r = sr.Recognizer()
+            with sr.Microphone() as source:
+                print("Listening...")
+                audio = r.listen(source)
+                response = r.recognize_google(audio)
 
-        # Cooper may interpret response as numerical value or literal value (e.g. three or 3), hence conversion
-        response = str(bomb.sanitize(response))[2:-2] # Remove brackets and apostraphes
-        bomb.numBatteries = int(response)
-        print(bomb.numBatteries)
-        bomb.batteriesStated = True 
+            # Cooper may interpret response as numerical value or literal value (e.g. three or 3), hence conversion
+            response = str(bomb.sanitize(response))[2:-2] # Remove brackets and apostraphes
+            bomb.numBatteries = int(response)
+            print(bomb.numBatteries)
+            bomb.batteriesStated = True 
+
 
         # TODO: These can be more efficient
         if bomb.litCARstated == False:
@@ -69,8 +70,6 @@ def button(engine):
             elif "no" in response:
                 bomb.litFRKstated = True
 
-    
-    
         print("What is the colour and text?")
         engine.say("What is the colour and text?")
         engine.runAndWait()
@@ -80,6 +79,10 @@ def button(engine):
             print("Listening...")
             audio = r.listen(source)
             response = r.recognize_google(audio)
+
+        # Abort
+        if "cancel" in response:
+            return "Exiting, returning to main."
 
         colourText = response.split()
         print("You said:", colourText)

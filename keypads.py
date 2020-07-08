@@ -4,8 +4,7 @@ import bomb
 from random import randint
 from time import sleep
 
-# TODO: Make this into a dictoinary, key value pair of word and position would probably be better
-
+# Define literal definitions for symbols
 c1 = ["lollipop", "mountain", "nowton", "lambda", "z", "zulu", "triangle", "h", "hotel", "crescent"]
 c2 = ["e", "echo", "eyes", "ice", "lollipop", "crescent", "cursive", "star", "h", "hotel", "question"]
 c3 = ["copyright", "copy right", "boobs", "cleavage", "cursive", "mirror", "three", "3", "lambda", "star"]
@@ -19,44 +18,50 @@ def keypads(engine):
     print("Initiating keypads.")
     engine.say("Initiating key pads.")
     engine.runAndWait()
-    print("What are the symbols from left to right?")
-    engine.say("What are the symbols from left to right?")
-    engine.runAndWait()
 
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("Listening...")
-        audio = r.listen(source)
-        response = r.recognize_google(audio)
+    try:
+        print("What are the symbols from left to right?")
+        engine.say("What are the symbols from left to right?")
+        engine.runAndWait()
 
-    if "cancel" in response:
-        return "Exiting, returning to main"
-    
-    symbols = response.split()
-    symbols = [x.lower() for x in symbols] # Convert every symbol to lowercase for easy comparison to column data
-    #print("Symbols:", symbols)
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            print("Listening...")
+            audio = r.listen(source)
+            response = r.recognize_google(audio)
 
-    for i in range(numColumns):
-        validWords = 0
-        for j in range(len(columns[i])):
-            if columns[i][j] in symbols:
-                #print(columns[i][j])
-                validWords+=1
-        if validWords >= 4:
-            correctColumn = i
+        # Abort
+        if "cancel" in response:
+            return "Exiting, returning to main."
+        
+        symbols = response.split()
+        symbols = [x.lower() for x in symbols] # Convert every symbol to lowercase for easy comparison to column data
+        correctColumn = 0 
+        orderedSymbols = {}
 
-    orderedSymbols = {}
-    for i in range(len(symbols)): # Iterate over symbols
-        valueCounter = 0
-        for j in range(len(columns[correctColumn])): # Iterate over correct column
-            if symbols[i] == columns[correctColumn][j]: # If words match
-                orderedSymbols[symbols[i]] = valueCounter # Append to dictionary
-            else:
-                valueCounter+=1
+        for i in range(numColumns):
+            validWords = 0
+            for j in range(len(columns[i])):
+                if columns[i][j] in symbols:
+                    validWords+=1
+            if validWords >= 4:
+                correctColumn = i
 
-    orderedSymbols = {k: v for k, v in sorted(orderedSymbols.items(), key=lambda item: item[1])}
-    #print(orderedSymbols)
-    return str(orderedSymbols.keys())[11:-2]
+        for i in range(len(symbols)): # Iterate over symbols
+            valueCounter = 0
+            for j in range(len(columns[correctColumn])): # Iterate over correct column
+                if symbols[i] == columns[correctColumn][j]: # If words match
+                    orderedSymbols[symbols[i]] = valueCounter # Append to dictionary
+                else:
+                    valueCounter+=1
+
+        orderedSymbols = {k: v for k, v in sorted(orderedSymbols.items(), key=lambda item: item[1])} # Sort symbol dictionary by values 
+        return str(orderedSymbols.keys())[11:-2]
+
+    except sr.UnknownValueError:
+        print("Google Speech Recognition could not understand audio")
+    except sr.RequestError as e:
+        print("Could not request results from Google Speech Recognition service; {0}".format(e))
         
 
     

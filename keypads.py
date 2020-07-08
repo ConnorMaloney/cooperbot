@@ -28,6 +28,9 @@ def keypads(engine):
         print("Listening...")
         audio = r.listen(source)
         response = r.recognize_google(audio)
+
+    if "cancel" in response:
+        return "Exiting, returning to main"
     
     symbols = response.split()
     symbols = [x.lower() for x in symbols] # Convert every symbol to lowercase for easy comparison to column data

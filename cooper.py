@@ -43,13 +43,14 @@ engine.runAndWait()
 # Begin game loop
 while True:
 
-   # Obtain audio from the microphone
-   r = sr.Recognizer()
-   with sr.Microphone() as source:
-      audio = r.listen(source)
-      answer = r.recognize_google(audio)
-      print("You said:", answer)
    try:
+   # Obtain audio from the microphone
+      r = sr.Recognizer()
+      with sr.Microphone() as source:
+         audio = r.listen(source)
+         answer = r.recognize_google(audio)
+         print("You said:", answer)
+   
       if "done" in answer:
          print("Nice! Let's keep it up.")
          engine.say("Nice! Let's keep it up.") # TODO: Add random speech

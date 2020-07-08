@@ -16,10 +16,11 @@ def button(engine):
     engine.say("Initiating button.")
     engine.runAndWait()
 
-    if bomb.batteriesStated == False:
-        print("How many batteries?")
-        engine.say("How many batteries?")
-        engine.runAndWait()
+    try:
+        if bomb.batteriesStated == False:
+            print("How many batteries?")
+            engine.say("How many batteries?")
+            engine.runAndWait()
 
         r = sr.Recognizer()
         with sr.Microphone() as source:
@@ -33,10 +34,45 @@ def button(engine):
         print(bomb.numBatteries)
         bomb.batteriesStated = True 
 
-    # TODO: These can be more efficient
-    if bomb.litCARstated == False:
-        print("Is there a lit indicator with label CAR?")
-        engine.say("Is there a lit indicator with label CAR?")
+        # TODO: These can be more efficient
+        if bomb.litCARstated == False:
+            print("Is there a lit indicator with label CAR?")
+            engine.say("Is there a lit indicator with label CAR?")
+            engine.runAndWait()
+
+            r = sr.Recognizer()
+            with sr.Microphone() as source:
+                print("Listening...")
+                audio = r.listen(source)
+                response = r.recognize_google(audio)
+
+            if "yes" in response:
+                bomb.litCAR = True
+                bomb.litCARstated = True
+            elif "no" in response:
+                bomb.litCARstated = True
+
+        if bomb.litFRKstated == False:
+            print("Is there a lit indicator with label FRK?")
+            engine.say("Is there a lit indicator with label FRK?")
+            engine.runAndWait()
+
+            r = sr.Recognizer()
+            with sr.Microphone() as source:
+                print("Listening...")
+                audio = r.listen(source)
+                response = r.recognize_google(audio)
+
+            if "yes" in response:
+                bomb.litFRK = True
+                bomb.litFRKstated = True
+            elif "no" in response:
+                bomb.litFRKstated = True
+
+    
+    
+        print("What is the colour and text?")
+        engine.say("What is the colour and text?")
         engine.runAndWait()
 
         r = sr.Recognizer()
@@ -45,51 +81,15 @@ def button(engine):
             audio = r.listen(source)
             response = r.recognize_google(audio)
 
-        if "yes" in response:
-            bomb.litCAR = True
-            bomb.litCARstated = True
-        elif "no" in response:
-            bomb.litCARstated = True
-
-    if bomb.litFRKstated == False:
-        print("Is there a lit indicator with label FRK?")
-        engine.say("Is there a lit indicator with label FRK?")
+        colourText = response.split()
+        print("You said:", colourText)
+        engine.say("Calculating...")
         engine.runAndWait()
+        sleep(randint(1,3)) # Have Cooper "calculate" for a random amount of time
 
-        r = sr.Recognizer()
-        with sr.Microphone() as source:
-            print("Listening...")
-            audio = r.listen(source)
-            response = r.recognize_google(audio)
-
-        if "yes" in response:
-            bomb.litFRK = True
-            bomb.litFRKstated = True
-        elif "no" in response:
-            bomb.litFRKstated = True
-
-    
-    
-    print("What is the colour and text?")
-    engine.say("What is the colour and text?")
-    engine.runAndWait()
-
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("Listening...")
-        audio = r.listen(source)
-        response = r.recognize_google(audio)
-
-    colourText = response.split()
-    print("You said:", colourText)
-    engine.say("Calculating...")
-    engine.runAndWait()
-    sleep(randint(1,3)) # Have Cooper "calculate" for a random amount of time
-
-    # Follow these rules in the order they are listed. Perform the first action that applies:
-    try: 
+        # Follow these rules in the order they are listed. Perform the first action that applies:
         # 1. If the button is blue and the button says "Abort", hold the button and refer to "Releasing a Held Button".
-        if "blue" in colourText and "abort" in colourText: 
+        if "blue" in colourText and "abort" in colourText or "aboard" in colourText: 
             timer = pressAndHold(engine)
             return timer
 

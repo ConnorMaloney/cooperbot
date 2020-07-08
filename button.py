@@ -25,6 +25,7 @@ def button(engine):
             audio = r.listen(source)
             response = r.recognize_google(audio)
 
+        # Cooper may interpret response as numerical value or literal value (e.g. three or 3), hence conversion
         response = str(bomb.sanitize(response))[2:-2] # Remove brackets and apostraphes
         bomb.numBatteries = int(response)
         print(bomb.numBatteries)

@@ -2,6 +2,7 @@ import speech_recognition as sr
 import pyttsx3
 from wires import wires
 from button import button 
+from keypads import keypads
 
 
 def testMode(engine):
@@ -40,7 +41,7 @@ engine.say("Cooper here. What are we solving?")
 engine.runAndWait()
 # Begin game loop
 while True:
-
+   
    # Obtain audio from the microphone
    r = sr.Recognizer()
    with sr.Microphone() as source:
@@ -53,15 +54,23 @@ while True:
          engine.say("Nice! Let's keep it up.") # TODO: Add random speech
          engine.runAndWait()
 
-      # If I say module name, grab variables and call module logic
-      if "wires" in answer:
+      # Begin wires module logic
+      if "wire" in answer or "tire" in answer:
          solution = wires(engine)
          print(solution)
          engine.say(solution)
          engine.runAndWait()
 
+      # Begin button module logic
       if "button" in answer:
          solution = button(engine)
+         print(solution)
+         engine.say(solution)
+         engine.runAndWait()
+
+      # Begin keypad module logic
+      if "keypad" in answer or "knee" in answer or "pee" in answer or "pad" in answer:
+         solution = keypads(engine)
          print(solution)
          engine.say(solution)
          engine.runAndWait()
@@ -82,13 +91,13 @@ while True:
       if "test" in answer or "testing" in answer or "test mode" in answer:
          testMode(engine)
       
+      # Gracefully shutdown Cooper
       if "exit" in answer or "shutdown" in answer or "shut down" in answer:
          print("Shutting down. Goodbye!")
          engine.say("Shutting down. Goodbye!")
          engine.runAndWait()
          exit()
-      
-      engine.runAndWait()
+
    except sr.UnknownValueError:
       print("Google Speech Recognition could not understand audio")
       engine.say("Sorry, could not understand you. Please repeat.")

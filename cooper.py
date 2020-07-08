@@ -4,6 +4,7 @@ from wires import wires
 from button import button 
 from keypads import keypads
 
+# TODO: FIX COOPER AND HAVE HIM STOP TIMING OUT ON UNKNOWNVALUEERROR
 
 def testMode(engine):
    print("Initiating test mode.")
@@ -41,7 +42,7 @@ engine.say("Cooper here. What are we solving?")
 engine.runAndWait()
 # Begin game loop
 while True:
-   
+
    # Obtain audio from the microphone
    r = sr.Recognizer()
    with sr.Microphone() as source:

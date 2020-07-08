@@ -5,6 +5,8 @@ from random import randint
 from time import sleep
 
 
+# TODO: Make sure Cooper doesnt time out when youre waiting for number to appear and release button
+
 # On the Subject of The Button
 
 # You might think that a button telling you to press it is pretty straightforward.

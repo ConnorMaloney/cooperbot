@@ -5,7 +5,7 @@ Responses:
 "I love you" - "I love you more"
 "Broke" - "If server working do nothing else fix server" (from Greg)
 
-Sound effects:
+# Sound effects:
 "Mission Complete" - Fox 4
 "WAHHH" - Fox 22
 "Shine" - Fox 29
@@ -22,7 +22,7 @@ Sound effects:
 "Congratulations!" - Narration 25
 "A NEW RECORD!" - Narration 24
 
-Music:
+# Music:
 Ending - 79
 Warning Siren - 78
 Continue - 68
@@ -33,6 +33,9 @@ Challenger! - 72
 Adventure Intro - 65
 All Star Intro - 60
 Metal Battle - 51
+
+TF2 Engineer https://www.youtube.com/watch?v=aVCf9GCtcGc
+Overwatch Overtime OST 
 
 # Words that cooper struggles with:
 Trident

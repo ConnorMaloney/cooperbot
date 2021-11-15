@@ -82,16 +82,10 @@ while True:
          engine.runAndWait()
          exit()
 
-      # Maria easter egg
+      # Lauren easter egg
       if "I love you" in answer:
          print("I love you more")
          engine.say("I love you more")
-         engine.runAndWait()
-
-      # Greg easter egg
-      if "broke" in answer:
-         print("If server working do nothing else fix server")
-         engine.say("If server working do nothing else fix server")
          engine.runAndWait()
 
       # Test mode

@@ -4,6 +4,15 @@ import bomb
 from random import randint
 from time import sleep
 
+# Dictionary mapping word representations to numerical values
+number_mapping = {
+    "zero": 0,
+    "one": 1,
+    "two": 2,
+    "three": 3,
+    # Add more mappings as needed
+}
+
 
 # TODO: Make sure Cooper doesnt time out when youre waiting for number to appear and release button
 
@@ -27,13 +36,23 @@ def button(engine):
                 print("Listening...")
                 audio = r.listen(source)
                 response = r.recognize_google(audio)
+                print("Cooper heard:", response)
 
-            # Cooper may interpret response as numerical value or literal value (e.g. three or 3), hence conversion
-            response = str(bomb.sanitize(response))[2:-2] # Remove brackets and apostraphes
-            bomb.numBatteries = int(response)
-            print(bomb.numBatteries)
-            bomb.batteriesStated = True 
+            # Extract the numerical value from the response
+            words = response.split()  # Split the response into individual words
+            num_batteries = None
+            for word in words:
+                if word in number_mapping:
+                    num_batteries = number_mapping[word]  # Map word to numerical value
+                    break  # Stop iterating if a valid value is found
 
+            if num_batteries is not None:
+                print("Number of batteries:", num_batteries)
+                bomb.numBatteries = num_batteries
+                bomb.batteriesStated = True
+                # Store the number of batteries in a variable or use it in further processing
+            else:
+                print("No numerical value found in the response.")
 
         # TODO: These can be more efficient
         if bomb.litCARstated == False:

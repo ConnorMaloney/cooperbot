@@ -4,6 +4,8 @@ import bomb
 from random import randint
 from time import sleep
 
+# TODO: This needs to be fixed, Cooper is not understanding  
+
 # Define literal definitions for symbols
 c1 = ["lollipop", "mountain", "nowton", "lambda", "z", "zulu", "triangle", "h", "hotel", "crescent"]
 c2 = ["e", "echo", "eyes", "ice", "lollipop", "crescent", "cursive", "star", "h", "hotel", "question"]
